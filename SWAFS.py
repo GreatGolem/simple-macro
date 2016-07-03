@@ -114,7 +114,7 @@ def dungeon(t):
 
 print 'Summoners War Auto Farming Script by Infinity'
 while(True):
-    print 'Please choose 1)start 2)set up'
+    print 'Please choose 1)start 2)set up 3)exit'
     choice = raw_input('')
     if choice == '1':
         i = input('set number of runs  ')
@@ -126,5 +126,7 @@ while(True):
     elif choice == '2':
         new_queue.setupDungeon()
         print 'set up finished'
+    elif choice == '3':
+        break
     else:
         print 'invalid input'
