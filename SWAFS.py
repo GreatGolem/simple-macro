@@ -197,12 +197,14 @@ while(True):
                         if mode == '2':
                             print str(refills) + ' refill(s) left.'
                     else:
-                        print 'run finished.'
+                        print 'auto farming finished.'
+                        print str(10000-i) + ' runs done.'
                         break
                 i = i-1
                 if mode == '1':
                     print str(i) + ' run(s) left.'
-            print 'run finished.'
+            print 'auto farming finished.'
+            print 'refilled ' + str(9999-refills) + ' times.'
         elif choice == '2':
             while(i>0):
                 hoh(t)
