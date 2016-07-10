@@ -21,9 +21,9 @@ def compare(a,b):
     return True
 
 def dungeonVictory(data):
-    click(data['victory'][2][0],data['victory'][2][1])
+    click(data['victory'][2][0],data['victory'][2][1])      #victory summary
     time.sleep(2)
-    click(data['victory'][2][0],data['victory'][2][1])
+    click(data['victory'][2][0],data['victory'][2][1])      #chest
     time.sleep(2)
     runeImg = ImageGrab.grab()
     timestr = time.strftime("%Y%m%d-%H%M%S")
@@ -112,17 +112,86 @@ def dungeon(t):
         print 'not enough energy.'
         recharge(data)
 
+def hohVictory(data):
+    click(data['victory'][2][0],data['victory'][2][1])      #victory summary
+    time.sleep(2)
+    click(data['victory'][2][0],data['victory'][2][1])      #chest
+    time.sleep(2)
+    click(data['victory'][8][0],data['victory'][8][1])      #HOH pieces OK button
+    time.sleep(2)
+    
+def hoh(t):
+    with open('dragon.json','rb') as f:
+        data = json.load(f)
+    click(data['start'][0],data['start'][1])
+    notEnd = True
+    print 'wait for ' + str(t) + ' min.'
+    time.sleep(60 * t)
+    while(notEnd):
+        time.sleep(5)
+        print 'checking game'
+        x1 = data['victory'][0][0]
+        y1 = data['victory'][0][1]
+        x2 = data['victory'][1][0]
+        y2 = data['victory'][1][1]
+        x3 = data['victory'][2][0]
+        y3 = data['victory'][2][1]
+        x4 = data['defeated'][0][0]
+        y4 = data['defeated'][0][1]
+        x5 = data['defeated'][1][0]
+        y5 = data['defeated'][1][1]
+        x6 = data['defeated'][2][0]
+        y6 = data['defeated'][2][1]
+        screen = ImageGrab.grab()
+        if( compare(screen.getpixel((x1,y1)),data['victory'][0][2]) and
+            compare(screen.getpixel((x2,y2)),data['victory'][1][2]) and
+            compare(screen.getpixel((x3,y3)),data['victory'][2][2])):
+            notEnd = False
+            result = 'victory'
+            print 'run end.'
+        elif(compare(screen.getpixel((x4,y4)),data['defeated'][0][2]) and
+            compare(screen.getpixel((x5,y5)),data['defeated'][1][2]) and
+            compare(screen.getpixel((x6,y6)),data['defeated'][2][2])):
+            notEnd = False
+            result = 'defeated'
+            print 'run end.'
+    time.sleep(2)
+    if(result == 'defeated'):
+        print 'run defeated.'
+        dungeonDefeated(data)
+    elif(result == 'victory'):
+        print 'run victory.'
+        hohVictory(data)
+    else:
+        print 'no run result found'
+    time.sleep(2)
+    click(data['victory'][4][0],data['victory'][4][1])  #replay
+    time.sleep(1)
+    x6 = data['buyEnergy'][0][0]
+    y6 = data['buyEnergy'][0][1]
+    if(compare(scr.pixel_color(x6,y6),data['buyEnergy'][0][2])):
+        print 'not enough energy.'
+        recharge(data)
+
 print 'Summoners War Auto Farming Script by Infinity'
 while(True):
     print 'Please choose 1)start 2)set up 3)exit'
     choice = raw_input('')
     if choice == '1':
-        i = input('set number of runs  ')
-        t = input('set initial wait in minutes')
-        while(i>0):
-            dungeon(t)
-            i = i-1
-            print str(i) + ' run(s) left.'
+        print 'Choose map 1)GB/DB/NB 2)HOH'
+        choice = raw_input('')
+        i = input('set number of runs\n')
+        t = input('set initial wait in minutes\n')
+        if choice == '1':
+            while(i>0):
+                dungeon(t)
+                i = i-1
+                print str(i) + ' run(s) left.'
+        elif choice == '2':
+            while(i>0):
+                hoh(t)
+                i = i-1
+                print str(i) + ' run(s) left.'
     elif choice == '2':
         new_queue.setupDungeon()
         print 'set up finished'

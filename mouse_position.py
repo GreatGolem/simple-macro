@@ -2,6 +2,7 @@ from Tkinter import *
 import win32api
 import capture_scr as scr
 
+#return a list of mouse position and color
 def get_mouse_position():
 
     root = Tk()

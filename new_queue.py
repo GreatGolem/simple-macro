@@ -7,28 +7,29 @@ def setupDungeon():
             data = json.load(f)
     else:
         data = {
-            'start':[1240,595],
+            'start':[],
             'victory':[
-                [493,450,[63,165,241]],
-                [818,445,[247,205,102]],
-                [1151,448,[230,37,87]],     #checking victory 0-2
-                [888,669,[244,229,169]],    #checking rune 3
-                [616,475,[247,206,102]],    #checking repaly 4
-                [799,663],                  #US,MS,rainbowmon 5
+                [],
+                [],
+                [],     #checking victory 0-2
+                [],    #checking rune 3
+                [],    #checking repaly 4
+                [],                  #US,MS,rainbowmon 5
                 [0,0,[0,0,0]],              #checking 4 star rune 6
-                [0,0,[0,0,0]]               #sell rune button 7
+                [0,0,[0,0,0]],              #sell rune button 7
+                []      #HOH pieces OK button 8
             ],
             'defeated':[
-                [0,0,[0,0,0]]               #revive crystal label
-                [0,0,[0,0,0]]               #revive 10 text
-                [842,227,[135,171,51]]      #revive NO text
+                [0,0,[0,0,0]],               #revive crystal label
+                [0,0,[0,0,0]],               #revive 10 text
+                []      #revive NO text
             ],
             'buyEnergy':[
-                [649,523,[204,159,67]],     #recharge yes button background
-                [525,486,[226,197,130]],    #shop energy background
-                [732,529,[202,158,68]],     #confirm yes button background
-                [835,522,[203,157,68]],     #purchase successful OK button
-                [787,705,[236,227,194]]     #shop close button
+                [],     #recharge yes button background
+                [],    #shop energy background
+                [],     #confirm yes button background
+                [],     #purchase successful OK button
+                []     #shop close button
             ]
         }
 
@@ -117,6 +118,11 @@ def setupDungeon():
     nothing = raw_input('Enter 0 to skip or just press Enter to start\n')
     if nothing != '0':
         data['victory'][7] = mp.get_mouse_position()
+
+    print 'point 17: HOH pieces OK button'
+    nothing = raw_input('Enter 0 to skip or just press Enter to start\n')
+    if nothing != '0':
+        data['victory'][8] = mp.get_mouse_position()
 
     with open('dragon.json','w') as f:
         json.dump(data,f)
