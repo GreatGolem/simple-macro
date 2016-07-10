@@ -108,9 +108,6 @@ def dungeon(t):
     time.sleep(1)
     x6 = data['buyEnergy'][0][0]
     y6 = data['buyEnergy'][0][1]
-    if(compare(scr.pixel_color(x6,y6),data['buyEnergy'][0][2])):
-        print 'not enough energy.'
-        recharge(data)
 
 def hohVictory(data):
     click(data['victory'][2][0],data['victory'][2][1])      #victory summary
@@ -119,7 +116,7 @@ def hohVictory(data):
     time.sleep(2)
     click(data['victory'][8][0],data['victory'][8][1])      #HOH pieces OK button
     time.sleep(2)
-    
+
 def hoh(t):
     with open('dragon.json','rb') as f:
         data = json.load(f)
@@ -169,9 +166,6 @@ def hoh(t):
     time.sleep(1)
     x6 = data['buyEnergy'][0][0]
     y6 = data['buyEnergy'][0][1]
-    if(compare(scr.pixel_color(x6,y6),data['buyEnergy'][0][2])):
-        print 'not enough energy.'
-        recharge(data)
 
 print 'Summoners War Auto Farming Script by Infinity'
 while(True):
@@ -180,18 +174,54 @@ while(True):
     if choice == '1':
         print 'Choose map 1)GB/DB/NB 2)HOH'
         choice = raw_input('')
-        i = input('set number of runs\n')
+        print 'Choose mode 1)set number of runs 2)set number of refills'
+        mode = raw_input('')
+        if mode == '1':
+            i = input('set number of runs\n')
+            refills = 9999
+        elif mode == '2':
+            i = 9999
+            refills = input('set number of refills\n')
+        else:
+            print 'invalid input'
+            continue
         t = input('set initial wait in minutes\n')
         if choice == '1':
             while(i>0):
                 dungeon(t)
+                if(compare(scr.pixel_color(x6,y6),data['buyEnergy'][0][2])):
+                    print 'not enough energy.'
+                    if refills > 0:
+                        recharge(data)
+                        refills = refills - 1
+                        if mode == '2':
+                            print str(refills) + ' refill(s) left.'
+                    else:
+                        print 'run finished.'
+                        break
                 i = i-1
-                print str(i) + ' run(s) left.'
+                if mode == '1':
+                    print str(i) + ' run(s) left.'
+            print 'run finished.'
         elif choice == '2':
             while(i>0):
                 hoh(t)
+                if(compare(scr.pixel_color(x6,y6),data['buyEnergy'][0][2])):
+                    print 'not enough energy.'
+                    if refills > 0:
+                        recharge(data)
+                        refills = refills - 1
+                        if mode == '2':
+                            print str(refills) + ' refill(s) left.'
+                    else:
+                        print 'run finished.'
+                        break
                 i = i-1
-                print str(i) + ' run(s) left.'
+                if mode == '1':
+                    print str(i) + ' run(s) left.'
+            print 'run finished.'
+        else:
+            print 'invalid input.'
     elif choice == '2':
         new_queue.setupDungeon()
         print 'set up finished'
