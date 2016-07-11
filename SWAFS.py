@@ -106,8 +106,6 @@ def dungeon(t):
     time.sleep(2)
     click(data['victory'][4][0],data['victory'][4][1])  #replay
     time.sleep(1)
-    x6 = data['buyEnergy'][0][0]
-    y6 = data['buyEnergy'][0][1]
 
 def hohVictory(data):
     click(data['victory'][2][0],data['victory'][2][1])      #victory summary
@@ -164,10 +162,10 @@ def hoh(t):
     time.sleep(2)
     click(data['victory'][4][0],data['victory'][4][1])  #replay
     time.sleep(1)
-    x6 = data['buyEnergy'][0][0]
-    y6 = data['buyEnergy'][0][1]
 
 print 'Summoners War Auto Farming Script by Infinity'
+with open('dragon.json','rb') as f:
+    data = json.load(f)
 while(True):
     print 'Please choose 1)start 2)set up 3)exit'
     choice = raw_input('')
@@ -189,6 +187,8 @@ while(True):
         if choice == '1':
             while(i>0):
                 dungeon(t)
+                x6 = data['buyEnergy'][0][0]
+                y6 = data['buyEnergy'][0][1]
                 if(compare(scr.pixel_color(x6,y6),data['buyEnergy'][0][2])):
                     print 'not enough energy.'
                     if refills > 0:
@@ -208,6 +208,8 @@ while(True):
         elif choice == '2':
             while(i>0):
                 hoh(t)
+                x6 = data['buyEnergy'][0][0]
+                y6 = data['buyEnergy'][0][1]
                 if(compare(scr.pixel_color(x6,y6),data['buyEnergy'][0][2])):
                     print 'not enough energy.'
                     if refills > 0:
