@@ -2,6 +2,7 @@ import json,time,win32api,win32con
 import capture_scr as scr
 from PIL import Image,ImageGrab
 import new_queue
+import sys
 #with open('data.json','rb') as f:
 #    data = json.load(f)
 
@@ -27,7 +28,6 @@ def dungeonVictory(data):
     time.sleep(2)
     runeImg = ImageGrab.grab()
     timestr = time.strftime("%Y%m%d-%H%M%S")
-    runeImg.save("drop_records/" + timestr +".png","PNG")
     x = data['victory'][3][0]
     y = data['victory'][3][1]
     screen = ImageGrab.grab()
@@ -37,6 +37,7 @@ def dungeonVictory(data):
         if compare(screen.getpixel((x,y)),data['victory'][6][2]):       #checking 5 star rune
             print '5/6 star rune got'
             click(data['victory'][3][0],data['victory'][3][1])          #click get
+            runeImg.save("rune_drop_records/" + timestr +".png","PNG")
         else:
             print '4 star rune got'
             click(data['victory'][7][0],data['victory'][7][1])          #click sell
@@ -44,6 +45,7 @@ def dungeonVictory(data):
             time.sleep(2)
     else:
         print 'non-rune drop got'
+        runeImg.save("other_drop_records/" + timestr +".png","PNG")
         click(data['victory'][5][0],data['victory'][5][1])
 
 def dungeonDefeated(data):
@@ -66,7 +68,8 @@ def dungeon(t):
     notEnd = True
     print 'wait for ' + str(t) + ' min.'
     time.sleep(60 * t)
-    while(notEnd):
+    checking_time = 0
+    while(notEnd and checking_time <= 120):
         time.sleep(5)
         print 'checking game'
         x1 = data['victory'][0][0]
@@ -94,6 +97,8 @@ def dungeon(t):
             notEnd = False
             result = 'defeated'
             print 'run end.'
+        else:
+            checking_time = checking_time + 1
     time.sleep(2)
     if(result == 'defeated'):
         print 'run defeated.'
@@ -101,6 +106,8 @@ def dungeon(t):
     elif(result == 'victory'):
         print 'run victory.'
         dungeonVictory(data)
+    elif(checking_time > 120):
+        sys.exit("10min time out\nauto exit")
     else:
         print 'no run result found'
     time.sleep(2)
@@ -163,6 +170,72 @@ def hoh(t):
     click(data['victory'][4][0],data['victory'][4][1])  #replay
     time.sleep(1)
 
+def expfarmVictory(data):
+    click(data['victory'][2][0],data['victory'][2][1])      #victory summary
+    time.sleep(2)
+    click(data['victory'][2][0],data['victory'][2][1])      #chest
+    time.sleep(2)
+    runeImg = ImageGrab.grab()
+    x = data['victory'][3][0]
+    y = data['victory'][3][1]
+    screen = ImageGrab.grab()
+    if(compare(screen.getpixel((x,y)),data['victory'][3][2])):          #checking rune
+        click(data['victory'][7][0],data['victory'][7][1])          #click sell
+        print 'selling the rune'
+        time.sleep(2)
+    else:
+        print 'non-rune drop got'
+        click(data['victory'][5][0],data['victory'][5][1])
+
+def expfarm(t):
+        with open('dragon.json','rb') as f:
+            data = json.load(f)
+        click(data['start'][0],data['start'][1])
+        notEnd = True
+        print 'wait for ' + str(t) + ' min.'
+        time.sleep(60 * t)
+        while(notEnd):
+            time.sleep(5)
+            print 'checking game'
+            x1 = data['victory'][0][0]
+            y1 = data['victory'][0][1]
+            x2 = data['victory'][1][0]
+            y2 = data['victory'][1][1]
+            x3 = data['victory'][2][0]
+            y3 = data['victory'][2][1]
+            x4 = data['defeated'][0][0]
+            y4 = data['defeated'][0][1]
+            x5 = data['defeated'][1][0]
+            y5 = data['defeated'][1][1]
+            x6 = data['defeated'][2][0]
+            y6 = data['defeated'][2][1]
+            screen = ImageGrab.grab()
+            if( compare(screen.getpixel((x1,y1)),data['victory'][0][2]) and
+                compare(screen.getpixel((x2,y2)),data['victory'][1][2]) and
+                compare(screen.getpixel((x3,y3)),data['victory'][2][2])):
+                notEnd = False
+                result = 'victory'
+                print 'run end.'
+            elif(compare(screen.getpixel((x4,y4)),data['defeated'][0][2]) and
+                compare(screen.getpixel((x5,y5)),data['defeated'][1][2]) and
+                compare(screen.getpixel((x6,y6)),data['defeated'][2][2])):
+                notEnd = False
+                result = 'defeated'
+                print 'run end.'
+        time.sleep(2)
+        if(result == 'defeated'):
+            print 'run defeated.'
+            dungeonDefeated(data)
+        elif(result == 'victory'):
+            print 'run victory.'
+            expfarmVictory(data)
+        else:
+            print 'no run result found'
+        time.sleep(2)
+        click(data['victory'][4][0],data['victory'][4][1])  #replay
+        time.sleep(1)
+
+
 print 'Summoners War Auto Farming Script by Infinity'
 with open('dragon.json','rb') as f:
     data = json.load(f)
@@ -170,7 +243,7 @@ while(True):
     print 'Please choose 1)start 2)set up 3)exit'
     choice = raw_input('')
     if choice == '1':
-        print 'Choose map 1)GB/DB/NB 2)HOH'
+        print 'Choose map 1)GB/DB/NB 2)HOH 3)Scenario'
         choice = raw_input('')
         print 'Choose mode 1)set number of runs 2)set number of refills'
         mode = raw_input('')
@@ -184,9 +257,12 @@ while(True):
             print 'invalid input'
             continue
         t = input('set initial wait in minutes\n')
-        if choice == '1':
+        if choice == '1' or choice == '3': #GB/DB/NB10 or scenario
             while(i>0):
-                dungeon(t)
+                if choice == '1':
+                    dungeon(t)
+                else:
+                    expfarm(t)
                 x6 = data['buyEnergy'][0][0]
                 y6 = data['buyEnergy'][0][1]
                 if(compare(scr.pixel_color(x6,y6),data['buyEnergy'][0][2])):
@@ -206,7 +282,7 @@ while(True):
             if i<=0:
                 print 'auto farming finished.'
                 print 'refilled ' + str(9999-refills) + ' times.'
-        elif choice == '2':
+        elif choice == '2': #HOH
             while(i>0):
                 hoh(t)
                 x6 = data['buyEnergy'][0][0]
