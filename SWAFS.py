@@ -13,11 +13,12 @@ def click(x,y):
     print 'click' + str((x,y))
 
 def compare(a,b):
-    if(a[0]!=b[0]):
+    tolerance = 12
+    if(abs(a[0]-b[0]) > tolerance):
         return False
-    elif(a[1]!=b[1]):
+    elif(abs(a[1]!=b[1]) > tolerance):
         return False
-    elif(a[2]!=b[2]):
+    elif(abs(a[2]!=b[2]) > tolerance):
         return False
     return True
 
