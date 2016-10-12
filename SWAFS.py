@@ -13,7 +13,7 @@ def click(x,y):
     print 'click' + str((x,y))
 
 def compare(a,b):
-    tolerance = 12
+    tolerance = 15
     if(abs(a[0]-b[0]) > tolerance):
         return False
     elif(abs(a[1]!=b[1]) > tolerance):
@@ -101,14 +101,17 @@ def dungeon(t):
         else:
             checking_time = checking_time + 1
     time.sleep(2)
+    if(checking_time > 120):
+        result = 'timeout'
     if(result == 'defeated'):
         print 'run defeated.'
         dungeonDefeated(data)
     elif(result == 'victory'):
         print 'run victory.'
         dungeonVictory(data)
-    elif(checking_time > 120):
-        sys.exit("10min time out\nauto exit")
+    elif(result == 'timeout'):
+        print 'timeout rescure.'
+        dungeonVictory(data)
     else:
         print 'no run result found'
     time.sleep(2)
@@ -128,9 +131,12 @@ def hoh(t):
         data = json.load(f)
     click(data['start'][0],data['start'][1])
     notEnd = True
+    result = 'none'
+    counter = 0
     print 'wait for ' + str(t) + ' min.'
     time.sleep(60 * t)
-    while(notEnd):
+    while(notEnd and counter < 60):
+        counter = counter + 1
         time.sleep(5)
         print 'checking game'
         x1 = data['victory'][0][0]
