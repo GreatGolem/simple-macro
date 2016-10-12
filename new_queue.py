@@ -54,75 +54,77 @@ def setupDungeon():
     if nothing != '0':
         data['victory'][2] = mp.get_mouse_position()
 
-    print 'point 4: rune Get button text'
-    nothing = raw_input('Enter 0 to skip or just press Enter to start\n')
-    if nothing != '0':
-        data['victory'][3] = mp.get_mouse_position()
-
-    print 'point 5: scroll OK button below text'
-    nothing = raw_input('Enter 0 to skip or just press Enter to start\n')
-    if nothing != '0':
-        data['victory'][5] = mp.get_mouse_position()
-
-    print 'point 6: replay button text'
-    nothing = raw_input('Enter 0 to skip or just press Enter to start\n')
-    if nothing != '0':
-        data['victory'][4] = mp.get_mouse_position()
-
-    print 'point 7: Revive crystal label'
-    nothing = raw_input('Enter 0 to skip or just press Enter to start\n')
-    if nothing != '0':
-        data['defeated'][0] = mp.get_mouse_position()
-
-    print 'point 8: Revive 10 text'
-    nothing = raw_input('Enter 0 to skip or just press Enter to start\n')
-    if nothing != '0':
-        data['defeated'][1] = mp.get_mouse_position()
-
-    print 'point 9: Revive NO text'
-    nothing = raw_input('Enter 0 to skip or just press Enter to start\n')
-    if nothing != '0':
-        data['defeated'][2] = mp.get_mouse_position()
-
-    print 'point 10: recharge Yes button background'
-    nothing = raw_input('Enter 0 to skip or just press Enter to start\n')
-    if nothing != '0':
-        data['buyEnergy'][0] = mp.get_mouse_position()
-
-    print 'point 11: shop recharge energy'
-    nothing = raw_input('Enter 0 to skip or just press Enter to start\n')
-    if nothing != '0':
-        data['buyEnergy'][1] = mp.get_mouse_position()
-
-    print 'point 12: recharge comfirm yes button'
-    nothing = raw_input('Enter 0 to skip or just press Enter to start\n')
-    if nothing != '0':
-        data['buyEnergy'][2] = mp.get_mouse_position()
-
-    print 'point 13: purchase successful OK button'
-    nothing = raw_input('Enter 0 to skip or just press Enter to start\n')
-    if nothing != '0':
-        data['buyEnergy'][3] = mp.get_mouse_position()
-
-    print 'point 14: shop Close button'
-    nothing = raw_input('Enter 0 to skip or just press Enter to start\n')
-    if nothing != '0':
-        data['buyEnergy'][4] = mp.get_mouse_position()
-
-    print 'point 15: rune 5th star'
+    print 'point 4: rune 5th star'
     nothing = raw_input('Enter 0 to skip or just press Enter to start\n')
     if nothing != '0':
         data['victory'][6] = mp.get_mouse_position()
 
-    print 'point 16: rune sell button'
+    print 'point 5: rune Get button text'
+    nothing = raw_input('Enter 0 to skip or just press Enter to start\n')
+    if nothing != '0':
+        data['victory'][3] = mp.get_mouse_position()
+
+    print 'point 6: rune sell button'
     nothing = raw_input('Enter 0 to skip or just press Enter to start\n')
     if nothing != '0':
         data['victory'][7] = mp.get_mouse_position()
 
-    print 'point 17: HOH pieces OK button'
+    print 'point 7: scroll OK button below text'
+    nothing = raw_input('Enter 0 to skip or just press Enter to start\n')
+    if nothing != '0':
+        data['victory'][5] = mp.get_mouse_position()
+
+    print 'point 8: HOH pieces OK button'
     nothing = raw_input('Enter 0 to skip or just press Enter to start\n')
     if nothing != '0':
         data['victory'][8] = mp.get_mouse_position()
 
+    print 'point 9: replay button text'
+    nothing = raw_input('Enter 0 to skip or just press Enter to start\n')
+    if nothing != '0':
+        data['victory'][4] = mp.get_mouse_position()
+
+    print 'point 10: Revive crystal label'
+    nothing = raw_input('Enter 0 to skip or just press Enter to start\n')
+    if nothing != '0':
+        data['defeated'][0] = mp.get_mouse_position()
+
+    print 'point 11: Revive "10" text'
+    nothing = raw_input('Enter 0 to skip or just press Enter to start\n')
+    if nothing != '0':
+        data['defeated'][1] = mp.get_mouse_position()
+
+    print 'point 12: Revive NO text'
+    nothing = raw_input('Enter 0 to skip or just press Enter to start\n')
+    if nothing != '0':
+        data['defeated'][2] = mp.get_mouse_position()
+
+    print 'point 13: recharge Yes button background'
+    nothing = raw_input('Enter 0 to skip or just press Enter to start\n')
+    if nothing != '0':
+        data['buyEnergy'][0] = mp.get_mouse_position()
+
+    print 'point 14: shop recharge energy'
+    nothing = raw_input('Enter 0 to skip or just press Enter to start\n')
+    if nothing != '0':
+        data['buyEnergy'][1] = mp.get_mouse_position()
+
+    print 'point 15: recharge comfirm yes button'
+    nothing = raw_input('Enter 0 to skip or just press Enter to start\n')
+    if nothing != '0':
+        data['buyEnergy'][2] = mp.get_mouse_position()
+
+    print 'point 16: purchase successful OK button'
+    nothing = raw_input('Enter 0 to skip or just press Enter to start\n')
+    if nothing != '0':
+        data['buyEnergy'][3] = mp.get_mouse_position()
+
+    print 'point 17: shop Close button'
+    nothing = raw_input('Enter 0 to skip or just press Enter to start\n')
+    if nothing != '0':
+        data['buyEnergy'][4] = mp.get_mouse_position()
+
     with open('dragon.json','w') as f:
         json.dump(data,f)
+
+    print 'set up finished\n'

@@ -58,7 +58,7 @@ def recharge(data):
     for point in data['buyEnergy']:
         if(compare(scr.pixel_color(point[0],point[1]),point[2])):
             click(point[0],point[1])
-            time.sleep(2)
+            time.sleep(5)
     click(data['victory'][4][0],data['victory'][4][1])  #replay
     time.sleep(1)
 
@@ -242,7 +242,7 @@ def expfarm(t):
         click(data['victory'][4][0],data['victory'][4][1])  #replay
         time.sleep(1)
 
-
+# main stream starts here
 print 'Summoners War Auto Farming Script by Infinity'
 with open('dragon.json','rb') as f:
     data = json.load(f)
