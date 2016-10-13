@@ -87,12 +87,7 @@
 	购买成功“确定”按钮
 		point 17: shop Close button
 	商店“关闭”按钮
-		point 15: rune 5th star
-	掉落符文页面符文图标的第5颗星中心黄色部分
-		point 16: rune sell button
-	掉落符文页面“出售”按钮
-		point 17: HOH pieces OK button
-	英雄地城碎片掉落页面“确定”按钮
+		
 6.	全部校准完毕后回到开头选择。将游戏进入地城队伍选择界面，确保没有其他窗口挡住模拟器窗口，在脚本窗口输入“1”回车。
 7.		Choose map 1)GB/DB/NB 2)HOH 3)senario
 	选择地图 1）巨人、龙、死亡 2）英雄地城 3）剧情地图
